@@ -1,0 +1,233 @@
+# Q1. Add two integers
+a = int(input("Enter first number: "))
+b = int(input("Enter second number: "))
+print("Sum =", a + b)
+
+
+# Q2. Subtract two integers
+a = int(input("Enter first number: "))
+b = int(input("Enter second number: "))
+print("Difference =", a - b)
+
+
+# Q3. Multiply two integers
+a = int(input("Enter first number: "))
+b = int(input("Enter second number: "))
+print("Product =", a * b)
+
+
+# Q4. Divide two integers and display quotient and remainder
+a = int(input("Enter first number: "))
+b = int(input("Enter second number: "))
+print("Quotient =", a // b)
+print("Remainder =", a % b)
+
+
+# Q5. Find square and cube
+n = int(input("Enter a number: "))
+print("Square =", n ** 2)
+print("Cube =", n ** 3)
+
+
+# Q6. Area of rectangle
+length = float(input("Enter length: "))
+width = float(input("Enter width: "))
+print("Area =", length * width)
+
+
+# Q7. Perimeter of circle
+r = float(input("Enter radius: "))
+print("Perimeter =", 2 * 3.14 * r)
+
+
+# Q8. Swap using temporary variable
+a = int(input("Enter a: "))
+b = int(input("Enter b: "))
+temp = a
+a = b
+b = temp
+print("After swapping:", a, b)
+
+
+# Q9. Swap without temporary variable
+a = int(input("Enter a: "))
+b = int(input("Enter b: "))
+a, b = b, a
+print("After swapping:", a, b)
+
+
+# Q10. Celsius to Fahrenheit
+c = float(input("Enter Celsius: "))
+f = (c * 9/5) + 32
+print("Fahrenheit =", f)
+
+
+# Q11. Fahrenheit to Celsius
+f = float(input("Enter Fahrenheit: "))
+c = (f - 32) * 5/9
+print("Celsius =", c)
+
+
+# Q12. Simple Interest
+p = float(input("Enter principal: "))
+r = float(input("Enter rate: "))
+t = float(input("Enter time: "))
+si = (p * r * t) / 100
+print("Simple Interest =", si)
+
+
+# Q13. Compound Interest
+p = float(input("Enter principal: "))
+r = float(input("Enter rate: "))
+t = float(input("Enter time: "))
+amount = p * (1 + r/100) ** t
+ci = amount - p
+print("Compound Interest =", ci)
+
+
+# Q14. Average of 3 numbers
+a = float(input("Enter first number: "))
+b = float(input("Enter second number: "))
+c = float(input("Enter third number: "))
+print("Average =", (a + b + c) / 3)
+
+
+# Q15. Kilometers to miles
+km = float(input("Enter kilometers: "))
+miles = km * 0.621371
+print("Miles =", miles)
+
+
+# Q16. Find remainder
+a = int(input("Enter first number: "))
+b = int(input("Enter second number: "))
+print("Remainder =", a % b)
+
+
+# Q17. Find power without pow()
+a = int(input("Enter base: "))
+b = int(input("Enter power: "))
+print("Answer =", a ** b)
+
+
+# Q18. BMI
+weight = float(input("Enter weight in kg: "))
+height = float(input("Enter height in meters: "))
+bmi = weight / (height ** 2)
+print("BMI =", bmi)
+
+
+# Q19. EMI
+p = float(input("Enter loan amount: "))
+r = float(input("Enter annual interest rate: "))
+n = int(input("Enter number of months: "))
+monthly_rate = r / (12 * 100)
+emi = (p * monthly_rate * (1 + monthly_rate) ** n) / ((1 + monthly_rate) ** n - 1)
+print("EMI =", emi)
+
+
+# Q20. Percentage of 5 subjects
+total = 0
+for i in range(5):
+    marks = float(input("Enter marks: "))
+    total += marks
+percentage = (total / 500) * 100
+print("Percentage =", percentage)
+
+
+# Q21. Positive or negative
+n = int(input("Enter a number: "))
+if n > 0:
+    print("Positive")
+elif n < 0:
+    print("Negative")
+else:
+    print("Zero")
+
+
+# Q22. Even or odd
+n = int(input("Enter a number: "))
+if n % 2 == 0:
+    print("Even")
+else:
+    print("Odd")
+
+
+# Q23. Divisible by 5
+n = int(input("Enter a number: "))
+if n % 5 == 0:
+    print("Divisible by 5")
+else:
+    print("Not divisible by 5")
+
+
+# Q24. Leap year
+year = int(input("Enter year: "))
+if (year % 400 == 0) or (year % 4 == 0 and year % 100 != 0):
+    print("Leap Year")
+else:
+    print("Not a Leap Year")
+
+
+# Q25. Largest of two numbers
+a = int(input("Enter first number: "))
+b = int(input("Enter second number: "))
+if a > b:
+    print("Largest =", a)
+else:
+    print("Largest =", b)
+
+
+# Q26. Largest of three numbers
+a = int(input("Enter first number: "))
+b = int(input("Enter second number: "))
+c = int(input("Enter third number: "))
+print("Largest =", max(a, b, c))
+
+
+# Q27. Vowel or consonant
+ch = input("Enter a character: ")
+if ch.lower() in "aeiou":
+    print("Vowel")
+else:
+    print("Consonant")
+
+
+# Q28. Uppercase, lowercase or digit
+ch = input("Enter a character: ")
+if ch.isupper():
+    print("Uppercase")
+elif ch.islower():
+    print("Lowercase")
+elif ch.isdigit():
+    print("Digit")
+else:
+    print("Special character")
+
+
+# Q29. Check number in range
+n = int(input("Enter a number: "))
+if 1 <= n <= 100:
+    print("Number is in range")
+else:
+    print("Number is out of range")
+
+
+# Q30. Prime number
+n = int(input("Enter a number: "))
+
+if n < 2:
+    print("Not a Prime Number")
+else:
+    prime = True
+
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            prime = False
+            break
+
+    if prime:
+        print("Prime Number")
+    else:
+        print("Not a Prime Number")
+
