@@ -1,0 +1,212 @@
+
+# 1. Create and display a tuple
+t = (10, 20, 30, 40)
+print("1. Tuple:", t)
+
+
+# 2. Tuple with different data types
+t = (10, "Python", 3.5, True)
+print("\n2. Different data types:", t)
+
+
+# 3. Find the length of a tuple
+t = (10, 20, 30, 40, 50)
+print("\n3. Length:", len(t))
+
+
+# 4. Access tuple elements using indexing
+t = (10, 20, 30, 40, 50)
+print("\n4. First element:", t[0])
+print("Last element:", t[-1])
+
+
+# 5. Access tuple elements using slicing
+t = (10, 20, 30, 40, 50)
+print("\n5. Sliced tuple:", t[1:4])
+
+
+# 6. Check if an element exists in a tuple
+t = (10, 20, 30, 40, 50)
+element = int(input("\n6. Enter element to search: "))
+
+if element in t:
+    print("Element exists")
+else:
+    print("Element does not exist")
+
+
+# 7. Count occurrences of an element
+t = (10, 20, 10, 30, 10, 40)
+element = int(input("\n7. Enter element to count: "))
+print("Occurrences:", t.count(element))
+
+
+# 8. Find the index of an element
+t = (10, 20, 30, 40, 50)
+element = int(input("\n8. Enter element to find index: "))
+
+if element in t:
+    print("Index:", t.index(element))
+else:
+    print("Element not found")
+
+
+# 9. Concatenate two tuples
+t1 = (1, 2, 3)
+t2 = (4, 5, 6)
+result = t1 + t2
+print("\n9. Concatenated tuple:", result)
+
+
+# 10. Repeat a tuple n times
+t = (1, 2, 3)
+n = int(input("\n10. Enter repetition count: "))
+print("Repeated tuple:", t * n)
+
+
+# 11. Convert a list into a tuple
+my_list = [10, 20, 30, 40]
+t = tuple(my_list)
+print("\n11. Converted tuple:", t)
+
+
+# 12. Convert a tuple into a string
+t = ("Python", "is", "easy")
+result = " ".join(t)
+print("\n12. String:", result)
+
+
+# 13. Find maximum and minimum values
+t = (45, 12, 78, 23, 9, 56)
+print("\n13. Maximum:", max(t))
+print("Minimum:", min(t))
+
+# 14. Sum of numeric elements in a tuple
+t = (10, 20, 30, 40, 50)
+print("14. Sum:", sum(t))
+
+
+# 15. Sort a tuple of numbers in ascending order
+t = (40, 10, 30, 20, 50)
+print("\n15. Ascending order:", tuple(sorted(t)))
+
+
+# 16. Sort a tuple of strings alphabetically
+t = ("Mango", "Apple", "Banana", "Orange")
+print("\n16. Alphabetical order:", tuple(sorted(t)))
+
+
+# 17. Reverse a tuple
+t = (10, 20, 30, 40, 50)
+print("\n17. Reversed tuple:", t[::-1])
+
+
+# 18. Check if two tuples are equal
+t1 = (10, 20, 30)
+t2 = (10, 20, 30)
+
+if t1 == t2:
+    print("\n18. Tuples are equal")
+else:
+    print("\n18. Tuples are not equal")
+
+
+# 19. Remove duplicate elements from a tuple
+t = (10, 20, 10, 30, 20, 40)
+result = tuple(dict.fromkeys(t))
+print("\n19. Without duplicates:", result)
+
+
+# 20. Length of the longest word in a tuple
+words = ("Python", "Programming", "Computer", "Code")
+longest = max(words, key=len)
+print("\n20. Longest word:", longest)
+print("Length:", len(longest))
+
+
+# 21. Create a nested tuple and access its elements
+t = ((1, 2, 3), (4, 5, 6), (7, 8, 9))
+print("\n21. Nested tuple:", t)
+print("Element:", t[1][2])
+
+
+# 22. Flatten a nested tuple (one level)
+nested = ((1, 2), (3, 4), (5, 6))
+flat = ()
+
+for subtuple in nested:
+    for item in subtuple:
+        flat += (item,)
+
+print("\n22. Flattened tuple:", flat)
+
+
+# 23. Swap two tuples
+t1 = (1, 2, 3)
+t2 = (4, 5, 6)
+
+t1, t2 = t2, t1
+
+print("\n23. First tuple:", t1)
+print("Second tuple:", t2)
+
+
+# 24. Find common elements between two tuples
+t1 = (10, 20, 30, 40)
+t2 = (30, 40, 50, 60)
+
+common = tuple(x for x in t1 if x in t2)
+print("\n24. Common elements:", tuple(dict.fromkeys(common)))
+
+
+# 25. Find the difference between two tuples
+t1 = (10, 20, 30, 40)
+t2 = (30, 40, 50, 60)
+
+difference = tuple(x for x in t1 if x not in t2)
+print("\n25. Difference (first - second):", difference)
+
+
+# 26. Convert a tuple of tuples into a dictionary
+t = (("name", "Tarun"), ("age", 22), ("city", "Haridwar"))
+result = dict(t)
+print("\n26. Dictionary:", result)
+
+
+# 27. Unzip a list of tuples into individual lists
+data = [(1, "A"), (2, "B"), (3, "C")]
+
+numbers, letters = zip(*data)
+print("\n27. Numbers:", list(numbers))
+print("Letters:", list(letters))
+
+
+# 28. Find repeated items in a tuple
+t = (10, 20, 10, 30, 20, 40, 10)
+repeated = []
+
+for item in t:
+    if t.count(item) > 1 and item not in repeated:
+        repeated.append(item)
+
+print("\n28. Repeated items:", tuple(repeated))
+
+
+# 29. Check if all elements in a tuple are the same
+t = (5, 5, 5, 5, 5)
+
+if len(set(t)) <= 1:
+    print("\n29. All elements are the same")
+else:
+    print("\n29. Elements are not all the same")
+
+
+# 30. Element-wise sum of two tuples
+t1 = (10, 20, 30)
+t2 = (1, 2, 3)
+
+if len(t1) == len(t2):
+    result = tuple(a + b for a, b in zip(t1, t2))
+    print("\n30. Element-wise sum:", result)
+else:
+    print("\n30. Tuples must have equal lengths")
