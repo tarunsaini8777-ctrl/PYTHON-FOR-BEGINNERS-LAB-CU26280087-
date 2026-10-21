@@ -1,0 +1,224 @@
+
+# 1. Create and display a set
+s = {10, 20, 30, 40}
+print("1. Set:", s)
+
+
+# 2. Create a set with different data types
+s = {10, "Python", 3.5, True}
+print("\n2. Different data types:", s)
+
+
+# 3. Add a single element to a set
+s = {10, 20, 30}
+s.add(40)
+print("\n3. After adding element:", s)
+
+
+# 4. Add multiple elements to a set
+s = {10, 20, 30}
+s.update([40, 50, 60])
+print("\n4. After adding multiple elements:", s)
+
+
+# 5. Remove an element using remove()
+s = {10, 20, 30, 40}
+s.remove(20)
+print("\n5. After remove():", s)
+
+
+# 6. Remove an element using discard()
+s = {10, 20, 30, 40}
+s.discard(30)
+print("\n6. After discard():", s)
+
+
+# 7. Clear all elements from a set
+s = {10, 20, 30}
+s.clear()
+print("\n7. Empty set:", s)
+
+
+# 8. Check if an element exists in a set
+s = {10, 20, 30, 40}
+element = int(input("\n8. Enter element to search: "))
+
+if element in s:
+    print("Element exists")
+else:
+    print("Element does not exist")
+
+
+# 9. Find the length of a set
+s = {10, 20, 30, 40, 50}
+print("\n9. Length of set:", len(s))
+
+
+# 10. Iterate through a set and print elements
+s = {10, 20, 30, 40, 50}
+print("\n10. Set elements:")
+
+for item in s:
+    print(item)
+
+
+# 11. Find the union of two sets
+a = {1, 2, 3, 4}
+b = {3, 4, 5, 6}
+print("\n11. Union:", a.union(b))
+
+
+# 12. Find the intersection of two sets
+a = {1, 2, 3, 4}
+b = {3, 4, 5, 6}
+print("\n12. Intersection:", a.intersection(b))
+
+
+# 13. Find the difference of two sets
+a = {1, 2, 3, 4}
+b = {3, 4, 5, 6}
+print("\n13. Difference (A - B):", a.difference(b))
+
+
+# 14. Find the symmetric difference of two sets
+a = {1, 2, 3, 4}
+b = {3, 4, 5, 6}
+print("\n14. Symmetric difference:", a.symmetric_difference(b))
+
+
+# 15. Check if a set is a subset of another set
+a = {1, 2}
+b = {1, 2, 3, 4}
+
+if a.issubset(b):
+    print("\n15. A is a subset of B")
+else:
+    print("\n15. A is not a subset of B")
+
+
+# 16. Check if a set is a superset of another set
+a = {1, 2, 3, 4}
+b = {1, 2}
+
+if a.issuperset(b):
+    print("\n16. A is a superset of B")
+else:
+    print("\n16. A is not a superset of B")
+
+
+# 17. Check if two sets are disjoint
+a = {1, 2, 3}
+b = {4, 5, 6}
+
+if a.isdisjoint(b):
+    print("\n17. Sets are disjoint")
+else:
+    print("\n17. Sets are not disjoint")
+
+# 18. Remove all elements of one set from another set
+a = {1, 2, 3, 4, 5}
+b = {2, 4}
+a.difference_update(b)
+print("18. After removing elements:", a)
+
+
+# 19. Create the power set of a given set
+s = {1, 2, 3}
+power_set = [set()]
+
+for item in s:
+    power_set += [subset | {item} for subset in power_set]
+
+print("\n19. Power set:")
+for subset in power_set:
+    print(subset)
+
+
+# 20. Cartesian product of two sets
+a = {1, 2}
+b = {"A", "B"}
+product = {(x, y) for x in a for y in b}
+print("\n20. Cartesian product:", product)
+
+
+# 21. Count distinct elements from a list using a set
+numbers = [1, 2, 3, 2, 4, 1, 5]
+distinct = set(numbers)
+print("\n21. Distinct elements:", distinct)
+print("Count:", len(distinct))
+
+
+# 22. Find duplicate elements in a list using a set
+numbers = [1, 2, 3, 2, 4, 1, 5, 3]
+seen = set()
+duplicates = set()
+
+for num in numbers:
+    if num in seen:
+        duplicates.add(num)
+    else:
+        seen.add(num)
+
+print("\n22. Duplicate elements:", duplicates)
+
+
+# 23. Remove duplicates from a list using a set
+numbers = [1, 2, 3, 2, 4, 1, 5]
+result = list(set(numbers))
+print("\n23. List without duplicates:", result)
+
+
+# 24. Convert a string into a set of characters
+text = "python programming"
+characters = set(text)
+print("\n24. Character set:", characters)
+
+
+# 25. Find common letters in two strings using sets
+s1 = "hello"
+s2 = "world"
+common = set(s1) & set(s2)
+common.discard(" ")
+print("\n25. Common letters:", common)
+
+
+# 26. Find unique words in a sentence using a set
+sentence = "Python is easy and Python is useful"
+words = set(sentence.lower().split())
+print("\n26. Unique words:", words)
+
+
+# 27. Check if two strings are anagrams using sets
+s1 = input("\n27. Enter first string: ").replace(" ", "").lower()
+s2 = input("Enter second string: ").replace(" ", "").lower()
+
+if set(s1) == set(s2) and sorted(s1) == sorted(s2):
+    print("Strings are anagrams")
+else:
+    print("Strings are not anagrams")
+
+
+# 28. Create a frozen set and demonstrate its properties
+fs = frozenset([10, 20, 30, 20])
+print("\n28. Frozen set:", fs)
+print("Length:", len(fs))
+print("Is 20 present?", 20 in fs)
+print("Union:", fs.union({30, 40}))
+
+
+# 29. Find maximum and minimum values in a set
+numbers = {45, 12, 78, 23, 9, 56}
+print("\n29. Maximum:", max(numbers))
+print("Minimum:", min(numbers))
+
+
+# 30. Perform all basic set operations
+a = {1, 2, 3, 4}
+b = {3, 4, 5, 6}
+
+print("\n30. Set A:", a)
+print("Set B:", b)
+print("Union:", a | b)
+print("Intersection:", a & b)
+print("Difference (A - B):", a - b)
+print("Symmetric difference:", a ^ b)
