@@ -1,0 +1,593 @@
+# ---------- Q1: CREATE STUDENT RECORDS IN A LIST ----------
+
+def q1_create_students():
+    students = [
+        {"roll": 1, "name": "Tarun", "marks": 85},
+        {"roll": 2, "name": "Aman", "marks": 90},
+        {"roll": 3, "name": "Rahul", "marks": 75}
+    ]
+    print("Student records created:")
+    print(students)
+
+
+# ---------- Q2: DISPLAY ALL STUDENT RECORDS ----------
+
+def q2_read_students():
+    students = [
+        {"roll": 1, "name": "Tarun", "marks": 85},
+        {"roll": 2, "name": "Aman", "marks": 90},
+        {"roll": 3, "name": "Rahul", "marks": 75}
+    ]
+
+    for student in students:
+        print(student)
+
+
+# ---------- Q3: SEARCH STUDENT BY NAME ----------
+
+def q3_search_student():
+    students = [
+        {"roll": 1, "name": "Tarun", "marks": 85},
+        {"roll": 2, "name": "Aman", "marks": 90},
+        {"roll": 3, "name": "Rahul", "marks": 75}
+    ]
+
+    name = input("Enter student name: ").strip().lower()
+
+    result = [
+        s for s in students
+        if s["name"].lower() == name
+    ]
+
+    print(result if result else "Student not found.")
+
+
+# ---------- Q4: UPDATE STUDENT MARKS IN A LIST ----------
+
+def q4_update_marks():
+    students = [
+        {"roll": 1, "name": "Tarun", "marks": 85},
+        {"roll": 2, "name": "Aman", "marks": 90}
+    ]
+
+    try:
+        roll = int(input("Enter roll number: "))
+        marks = float(input("Enter new marks: "))
+
+        for student in students:
+            if student["roll"] == roll:
+                student["marks"] = marks
+                print("Marks updated:", student)
+                return
+
+        print("Student not found.")
+
+    except ValueError:
+        print("Enter valid values.")
+
+
+# ---------- Q5: DELETE STUDENT BY ROLL NUMBER ----------
+
+def q5_delete_student():
+    students = [
+        {"roll": 1, "name": "Tarun", "marks": 85},
+        {"roll": 2, "name": "Aman", "marks": 90}
+    ]
+
+    try:
+        roll = int(input("Enter roll number to delete: "))
+        updated = [s for s in students if s["roll"] != roll]
+
+        if len(updated) < len(students):
+            print("Student deleted.")
+        else:
+            print("Student not found.")
+
+        print("Remaining records:", updated)
+
+    except ValueError:
+        print("Enter a valid roll number.")
+
+
+# ---------- Q6: CRUD OPERATIONS ON EMPLOYEE DICTIONARY ----------
+
+def q6_employee_crud():
+    employees = {}
+
+    while True:
+        print("\n1. Add Employee")
+        print("2. View Employees")
+        print("3. Update Employee")
+        print("4. Delete Employee")
+        print("5. Back to Main Menu")
+
+        choice = input("Enter choice: ")
+
+        try:
+            if choice == "1":
+                emp_id = input("Employee ID: ")
+
+                if emp_id in employees:
+                    print("Employee ID already exists.")
+                    continue
+
+                name = input("Employee name: ")
+                salary = float(input("Salary: "))
+
+                employees[emp_id] = {
+                    "name": name,
+                    "salary": salary
+                }
+                print("Employee added.")
+
+            elif choice == "2":
+                print(employees if employees else "No employees.")
+
+            elif choice == "3":
+                emp_id = input("Enter employee ID: ")
+
+                if emp_id in employees:
+                    employees[emp_id]["name"] = input("New name: ")
+                    employees[emp_id]["salary"] = float(
+                        input("New salary: ")
+                    )
+                    print("Employee updated.")
+                else:
+                    print("Employee not found.")
+
+            elif choice == "4":
+                emp_id = input("Enter employee ID: ")
+
+                if emp_id in employees:
+                    del employees[emp_id]
+                    print("Employee deleted.")
+                else:
+                    print("Employee not found.")
+
+            elif choice == "5":
+                break
+
+            else:
+                print("Invalid choice.")
+
+        except ValueError:
+            print("Enter valid data.")
+
+
+# ---------- Q7: MENU-DRIVEN BOOK CRUD ----------
+
+def q7_book_crud():
+    books = {}
+
+    while True:
+        print("\n1. Add Book")
+        print("2. View Books")
+        print("3. Update Book")
+        print("4. Delete Book")
+        print("5. Back")
+
+        choice = input("Enter choice: ")
+
+        if choice == "1":
+            book_id = input("Book ID: ")
+
+            if book_id in books:
+                print("Book ID already exists.")
+                continue
+
+            books[book_id] = input("Book name: ")
+            print("Book added.")
+
+        elif choice == "2":
+            print(books if books else "No books found.")
+
+        elif choice == "3":
+            book_id = input("Book ID: ")
+
+            if book_id in books:
+                books[book_id] = input("New book name: ")
+                print("Book updated.")
+            else:
+                print("Book not found.")
+
+        elif choice == "4":
+            book_id = input("Book ID: ")
+
+            if book_id in books:
+                del books[book_id]
+                print("Book deleted.")
+            else:
+                print("Book not found.")
+
+        elif choice == "5":
+            break
+
+        else:
+            print("Invalid choice.")
+
+
+# ---------- Q8: CRUD OPERATIONS ON PRODUCTS ----------
+
+def q8_product_crud():
+    products = {}
+
+    while True:
+        print("\n1. Add Product")
+        print("2. View Products")
+        print("3. Update Product")
+        print("4. Delete Product")
+        print("5. Back")
+
+        choice = input("Enter choice: ")
+
+        try:
+            if choice == "1":
+                pid = input("Product ID: ")
+
+                if pid in products:
+                    print("Product ID already exists.")
+                    continue
+
+                name = input("Product name: ")
+                price = float(input("Price: "))
+                quantity = int(input("Quantity: "))
+
+                products[pid] = {
+                    "name": name,
+                    "price": price,
+                    "quantity": quantity
+                }
+                print("Product added.")
+
+            elif choice == "2":
+                print(products if products else "No products.")
+
+            elif choice == "3":
+                pid = input("Product ID: ")
+
+                if pid in products:
+                    products[pid]["price"] = float(input("New price: "))
+                    products[pid]["quantity"] = int(
+                        input("New quantity: ")
+                    )
+                    print("Product updated.")
+                else:
+                    print("Product not found.")
+
+            elif choice == "4":
+                pid = input("Product ID: ")
+
+                if pid in products:
+                    del products[pid]
+                    print("Product deleted.")
+                else:
+                    print("Product not found.")
+
+            elif choice == "5":
+                break
+
+            else:
+                print("Invalid choice.")
+
+        except ValueError:
+            print("Enter valid price or quantity.")
+
+
+# ---------- Q9: SAVE STUDENT DATA TO TEXT FILE ----------
+
+def q9_save_read_file():
+    try:
+        with open(STUDENT_FILE, "w", encoding="utf-8") as file:
+            file.write("1,Tarun,85\n")
+            file.write("2,Aman,90\n")
+            file.write("3,Rahul,75\n")
+
+        print("Student data saved.")
+
+        with open(STUDENT_FILE, "r", encoding="utf-8") as file:
+            print("\nStudent records:")
+            print(file.read())
+
+    except OSError as e:
+        print("File error:", e)
+
+
+# ---------- Q10: CRUD OPERATIONS ON A JSON FILE ----------
+
+def load_records():
+    if not os.path.exists(RECORD_FILE):
+        return []
+
+    try:
+        with open(RECORD_FILE, "r", encoding="utf-8") as file:
+            return json.load(file)
+    except (json.JSONDecodeError, OSError):
+        return []
+
+
+def save_records(records):
+    with open(RECORD_FILE, "w", encoding="utf-8") as file:
+        json.dump(records, file, indent=4)
+
+
+def q10_file_crud():
+    while True:
+        print("\n1. Add Record")
+        print("2. View Records")
+        print("3. Modify Record")
+        print("4. Delete Record")
+        print("5. Back")
+
+        choice = input("Enter choice: ")
+
+        try:
+            records = load_records()
+
+            if choice == "1":
+                rid = input("Record ID: ")
+
+                if any(r["id"] == rid for r in records):
+                    print("Record ID already exists.")
+                    continue
+
+                name = input("Name: ")
+                records.append({"id": rid, "name": name})
+                save_records(records)
+                print("Record added.")
+
+            elif choice == "2":
+                print(records if records else "No records found.")
+
+            elif choice == "3":
+                rid = input("Record ID to modify: ")
+                found = False
+
+                for record in records:
+                    if record["id"] == rid:
+                        record["name"] = input("New name: ")
+                        found = True
+                        break
+
+                if found:
+                    save_records(records)
+                    print("Record updated.")
+                else:
+                    print("Record not found.")
+
+            elif choice == "4":
+                rid = input("Record ID to delete: ")
+                updated = [r for r in records if r["id"] != rid]
+
+                if len(updated) == len(records):
+                    print("Record not found.")
+                else:
+                    save_records(updated)
+                    print("Record deleted.")
+
+            elif choice == "5":
+                break
+
+            else:
+                print("Invalid choice.")
+
+        except (OSError, ValueError) as e:
+            print("File error:", e)
+
+
+# ---------- Q11: CONNECT TO DATABASE AND CREATE TABLE ----------
+
+def q11_create_table():
+    setup_database()
+    print("Connected to SQLite. Students table is ready.")
+
+
+# ---------- Q12: INSERT A NEW DATABASE RECORD ----------
+
+def q12_insert_record():
+    con = sqlite3.connect(DB_NAME)
+
+    try:
+        sid = int(input("Enter student roll/ID: "))
+        name = input("Enter name: ")
+        age = int(input("Enter age: "))
+        marks = float(input("Enter marks: "))
+
+        con.execute(
+            "INSERT INTO students(id, name, age, marks) VALUES (?, ?, ?, ?)",
+            (sid, name, age, marks)
+        )
+        con.commit()
+        print("Record inserted successfully.")
+
+    except (sqlite3.Error, ValueError) as e:
+        print("Error:", e)
+
+    finally:
+        con.close()
+
+
+# ---------- Q13: READ ALL DATABASE RECORDS ----------
+
+def q13_read_records():
+    con = sqlite3.connect(DB_NAME)
+
+    try:
+        rows = con.execute("SELECT * FROM students").fetchall()
+
+        for row in rows:
+            print(row)
+
+        if not rows:
+            print("No records found.")
+
+    except sqlite3.Error as e:
+        print("Error:", e)
+
+    finally:
+        con.close()
+
+
+# ---------- Q14: SEARCH STUDENT BY ROLL NUMBER ----------
+
+def q14_search_student():
+    con = sqlite3.connect(DB_NAME)
+
+    try:
+        sid = int(input("Enter student roll/ID: "))
+        row = con.execute(
+            "SELECT * FROM students WHERE id = ?", (sid,)
+        ).fetchone()
+
+        print(row if row else "Student not found.")
+
+    except (sqlite3.Error, ValueError) as e:
+        print("Error:", e)
+
+    finally:
+        con.close()
+
+
+# ---------- Q15: UPDATE STUDENT MARKS ----------
+
+def q15_update_marks():
+    con = sqlite3.connect(DB_NAME)
+
+    try:
+        sid = int(input("Enter student roll/ID: "))
+        marks = float(input("Enter new marks: "))
+
+        cur = con.execute(
+            "UPDATE students SET marks = ? WHERE id = ?",
+            (marks, sid)
+        )
+        con.commit()
+
+        print("Marks updated." if cur.rowcount else "Student not found.")
+
+    except (sqlite3.Error, ValueError) as e:
+        print("Error:", e)
+
+    finally:
+        con.close()
+
+
+# ---------- Q16: DELETE STUDENT BY ROLL NUMBER ----------
+
+def q16_delete_student():
+    con = sqlite3.connect(DB_NAME)
+
+    try:
+        sid = int(input("Enter student roll/ID to delete: "))
+
+        cur = con.execute(
+            "DELETE FROM students WHERE id = ?", (sid,)
+        )
+        con.commit()
+
+        print("Student deleted." if cur.rowcount else "Student not found.")
+
+    except (sqlite3.Error, ValueError) as e:
+        print("Error:", e)
+
+    finally:
+        con.close()
+
+
+# ---------- Q17: COUNT TOTAL DATABASE RECORDS ----------
+
+def q17_count_records():
+    con = sqlite3.connect(DB_NAME)
+
+    try:
+        count = con.execute(
+            "SELECT COUNT(*) FROM students"
+        ).fetchone()[0]
+
+        print("Total records:", count)
+
+    except sqlite3.Error as e:
+        print("Error:", e)
+
+    finally:
+        con.close()
+
+
+# ---------- Q18: SORT RECORDS BY STUDENT NAME ----------
+
+def q18_sort_by_name():
+    con = sqlite3.connect(DB_NAME)
+
+    try:
+        rows = con.execute(
+            "SELECT * FROM students ORDER BY name ASC"
+        ).fetchall()
+
+        for row in rows:
+            print(row)
+
+    except sqlite3.Error as e:
+        print("Error:", e)
+
+    finally:
+        con.close()
+
+
+# ---------- Q19: STUDENT WITH HIGHEST MARKS ----------
+
+def q19_highest_marks():
+    con = sqlite3.connect(DB_NAME)
+
+    try:
+        row = con.execute("""
+            SELECT * FROM students
+            WHERE marks = (SELECT MAX(marks) FROM students)
+        """).fetchone()
+
+        print("Highest scoring student:", row if row else "No records.")
+
+    except sqlite3.Error as e:
+        print("Error:", e)
+
+    finally:
+        con.close()
+
+
+# ---------- Q20: MENU-DRIVEN DATABASE CRUD APPLICATION ----------
+
+def q20_database_menu():
+    while True:
+        print("\n===== STUDENT DATABASE CRUD =====")
+        print("1. Add Student")
+        print("2. View Students")
+        print("3. Search Student")
+        print("4. Update Marks")
+        print("5. Delete Student")
+        print("6. Count Students")
+        print("7. Sort by Name")
+        print("8. Highest Marks")
+        print("9. Back to Main Menu")
+
+        choice = input("Enter choice: ")
+
+        if choice == "1":
+            q12_insert_record()
+        elif choice == "2":
+            q13_read_records()
+        elif choice == "3":
+            q14_search_student()
+        elif choice == "4":
+            q15_update_marks()
+        elif choice == "5":
+            q16_delete_student()
+        elif choice == "6":
+            q17_count_records()
+        elif choice == "7":
+            q18_sort_by_name()
+        elif choice == "8":
+            q19_highest_marks()
+        elif choice == "9":
+            break
+        else:
+            print("Invalid choice.")
+
+
