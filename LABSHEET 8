@@ -1,0 +1,555 @@
+# Q1: Connect to database and display success message
+def connect_database():
+    try:
+        con = sqlite3.connect(DB_NAME)
+        print("Database connected successfully!")
+        return con
+    except sqlite3.Error as e:
+        print("Database Error:", e)
+        return None
+
+
+# Q2: Create a new database
+def create_database():
+    try:
+        con = sqlite3.connect("student_db.db")
+        con.close()
+        print("Database created successfully!")
+    except sqlite3.Error as e:
+        print("Error:", e)
+
+
+# Q3: Create students table
+def create_table():
+    con = connect_database()
+    try:
+        con.execute("""
+            CREATE TABLE IF NOT EXISTS students (
+                id INTEGER PRIMARY KEY,
+                name TEXT NOT NULL,
+                age INTEGER,
+                marks REAL,
+                course_id INTEGER
+            )
+        """)
+        con.commit()
+        print("Students table created successfully!")
+    except sqlite3.Error as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q4: Describe table structure
+def describe_table():
+    con = connect_database()
+    try:
+        rows = con.execute("PRAGMA table_info(students)").fetchall()
+        for row in rows:
+            print(row)
+    except sqlite3.Error as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q5: List all tables
+def list_tables():
+    con = connect_database()
+    try:
+        rows = con.execute("""
+            SELECT name FROM sqlite_master
+            WHERE type='table'
+        """).fetchall()
+        print("Tables:", rows)
+    except sqlite3.Error as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q6: Drop students table
+def drop_table():
+    con = connect_database()
+    try:
+        con.execute("DROP TABLE IF EXISTS students")
+        con.commit()
+        print("Students table dropped.")
+    except sqlite3.Error as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q7: Check if table exists
+def check_table():
+    con = connect_database()
+    try:
+        row = con.execute("""
+            SELECT name FROM sqlite_master
+            WHERE type='table' AND name=?
+        """, ("students",)).fetchone()
+
+        if row:
+            print("Students table exists.")
+        else:
+            print("Students table does not exist.")
+    except sqlite3.Error as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q8: Insert a single record
+def insert_single():
+    con = connect_database()
+    try:
+        student = (
+            int(input("Enter ID: ")),
+            input("Enter name: "),
+            int(input("Enter age: ")),
+            float(input("Enter marks: ")),
+            int(input("Enter course ID (0 if none): "))
+        )
+
+        con.execute("""
+            INSERT INTO students(id, name, age, marks, course_id)
+            VALUES (?, ?, ?, ?, ?)
+        """, student)
+
+        con.commit()
+        print("Record inserted successfully!")
+    except (sqlite3.Error, ValueError) as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q9: Insert multiple records
+def insert_multiple():
+    con = connect_database()
+    try:
+        students = [
+            (1, "Tarun", 21, 85, 101),
+            (2, "Aman", 22, 92, 102),
+            (3, "Rahul", 20, 76, 101),
+            (4, "Priya", 21, 65, 103),
+            (5, "Neha", 23, 38, 102)
+        ]
+
+        con.executemany("""
+            INSERT OR IGNORE INTO students
+            (id, name, age, marks, course_id)
+            VALUES (?, ?, ?, ?, ?)
+        """, students)
+
+        con.commit()
+        print("Multiple records inserted successfully!")
+    except sqlite3.Error as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q10: Display all records
+def view_all():
+    con = connect_database()
+    try:
+        rows = con.execute("SELECT * FROM students").fetchall()
+        for row in rows:
+            print(row)
+        if not rows:
+            print("No records found.")
+    except sqlite3.Error as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q11: Display name and marks only
+def specific_columns():
+    con = connect_database()
+    try:
+        rows = con.execute("SELECT name, marks FROM students").fetchall()
+        for row in rows:
+            print(row)
+    except sqlite3.Error as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q12: Students with marks greater than 80
+def marks_greater_80():
+    con = connect_database()
+    try:
+        rows = con.execute(
+            "SELECT * FROM students WHERE marks > ?", (80,)
+        ).fetchall()
+        for row in rows:
+            print(row)
+    except sqlite3.Error as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q13: Sort by marks in descending order
+def sort_marks():
+    con = connect_database()
+    try:
+        rows = con.execute(
+            "SELECT * FROM students ORDER BY marks DESC"
+        ).fetchall()
+        for row in rows:
+            print(row)
+    except sqlite3.Error as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q14: Count total records
+def count_students():
+    con = connect_database()
+    try:
+        count = con.execute(
+            "SELECT COUNT(*) FROM students"
+        ).fetchone()[0]
+        print("Total students:", count)
+    except sqlite3.Error as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q15: Top 3 highest scoring students
+def top_three():
+    con = connect_database()
+    try:
+        rows = con.execute("""
+            SELECT * FROM students
+            ORDER BY marks DESC LIMIT 3
+        """).fetchall()
+        for row in rows:
+            print(row)
+    except sqlite3.Error as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q16: Update marks using ID
+def update_marks():
+    con = connect_database()
+    try:
+        sid = int(input("Enter student ID: "))
+        marks = float(input("Enter new marks: "))
+
+        cur = con.execute(
+            "UPDATE students SET marks=? WHERE id=?",
+            (marks, sid)
+        )
+        con.commit()
+        print("Marks updated." if cur.rowcount else "Student not found.")
+    except (sqlite3.Error, ValueError) as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q17: Update student name
+def update_name():
+    con = connect_database()
+    try:
+        sid = int(input("Enter student ID: "))
+        name = input("Enter new name: ")
+
+        cur = con.execute(
+            "UPDATE students SET name=? WHERE id=?",
+            (name, sid)
+        )
+        con.commit()
+        print("Name updated." if cur.rowcount else "Student not found.")
+    except (sqlite3.Error, ValueError) as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q18: Delete a student using ID
+def delete_student():
+    con = connect_database()
+    try:
+        sid = int(input("Enter student ID to delete: "))
+        cur = con.execute("DELETE FROM students WHERE id=?", (sid,))
+        con.commit()
+        print("Student deleted." if cur.rowcount else "Student not found.")
+    except (sqlite3.Error, ValueError) as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q19: Delete students with marks below 40
+def delete_failed():
+    con = connect_database()
+    try:
+        cur = con.execute("DELETE FROM students WHERE marks < ?", (40,))
+        con.commit()
+        print("Students deleted:", cur.rowcount)
+    except sqlite3.Error as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q20: Truncate/empty table while keeping its structure
+def truncate_table():
+    con = connect_database()
+    try:
+        con.execute("DELETE FROM students")
+        con.commit()
+        print("Students table emptied; structure remains intact.")
+    except sqlite3.Error as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q21: Create courses table and insert data
+def create_courses():
+    con = connect_database()
+    try:
+        con.execute("""
+            CREATE TABLE IF NOT EXISTS courses (
+                course_id INTEGER PRIMARY KEY,
+                course_name TEXT NOT NULL
+            )
+        """)
+
+        courses = [
+            (101, "MCA"),
+            (102, "BCA"),
+            (103, "BBA")
+        ]
+
+        con.executemany("""
+            INSERT OR IGNORE INTO courses(course_id, course_name)
+            VALUES (?, ?)
+        """, courses)
+
+        con.commit()
+        print("Courses table created and data inserted.")
+    except sqlite3.Error as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q22: INNER JOIN students and courses
+def inner_join():
+    con = connect_database()
+    try:
+        rows = con.execute("""
+            SELECT students.name, courses.course_name
+            FROM students
+            INNER JOIN courses
+            ON students.course_id = courses.course_id
+        """).fetchall()
+
+        for row in rows:
+            print(row)
+    except sqlite3.Error as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q23: LEFT JOIN students and courses
+def left_join():
+    con = connect_database()
+    try:
+        rows = con.execute("""
+            SELECT students.name, courses.course_name
+            FROM students
+            LEFT JOIN courses
+            ON students.course_id = courses.course_id
+        """).fetchall()
+
+        for row in rows:
+            print(row)
+    except sqlite3.Error as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q24: Average marks
+def average_marks():
+    con = connect_database()
+    try:
+        result = con.execute(
+            "SELECT AVG(marks) FROM students"
+        ).fetchone()[0]
+
+        print("Average marks:", result if result is not None else 0)
+    except sqlite3.Error as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q25: Group students by age and count them
+def group_by_age():
+    con = connect_database()
+    try:
+        rows = con.execute("""
+            SELECT age, COUNT(*)
+            FROM students
+            GROUP BY age
+            ORDER BY age
+        """).fetchall()
+
+        for row in rows:
+            print("Age:", row[0], "| Students:", row[1])
+    except sqlite3.Error as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q26: Export students data to CSV
+def export_csv():
+    con = connect_database()
+    try:
+        rows = con.execute("SELECT * FROM students").fetchall()
+        columns = [item[0] for item in
+                   con.execute("SELECT * FROM students").description]
+
+        with open("students.csv", "w", newline="", encoding="utf-8") as file:
+            writer = csv.writer(file)
+            writer.writerow(columns)
+            writer.writerows(rows)
+
+        print("Data exported to students.csv")
+    except (sqlite3.Error, OSError) as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q27: Import CSV data into students table
+def import_csv():
+    filename = input("Enter CSV filename (default students.csv): ").strip()
+    if not filename:
+        filename = "students.csv"
+
+    con = connect_database()
+    try:
+        with open(filename, "r", newline="", encoding="utf-8-sig") as file:
+            reader = csv.DictReader(file)
+            rows = []
+
+            for row in reader:
+                rows.append((
+                    int(row["id"]),
+                    row["name"],
+                    int(row["age"]),
+                    float(row["marks"]),
+                    int(row.get("course_id") or 0)
+                ))
+
+        con.executemany("""
+            INSERT OR REPLACE INTO students
+            (id, name, age, marks, course_id)
+            VALUES (?, ?, ?, ?, ?)
+        """, rows)
+
+        con.commit()
+        print("CSV data imported successfully!")
+    except (sqlite3.Error, OSError, ValueError, KeyError) as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q28: Display database errors using exception handling
+def error_handling_demo():
+    con = connect_database()
+    try:
+        # This intentionally uses a nonexistent table to demonstrate errors.
+        con.execute("SELECT * FROM nonexistent_table")
+    except sqlite3.Error as e:
+        print("Database error handled successfully:", e)
+    finally:
+        con.close()
+
+
+# Q29: Functions to insert and fetch data
+def insert_student_function(con, student):
+    con.execute("""
+        INSERT INTO students(id, name, age, marks, course_id)
+        VALUES (?, ?, ?, ?, ?)
+    """, student)
+    con.commit()
+
+
+def fetch_student_function(con):
+    return con.execute("SELECT * FROM students").fetchall()
+
+
+def modular_approach():
+    con = connect_database()
+    try:
+        choice = input("Insert a test record? (y/n): ").lower()
+
+        if choice == "y":
+            student = (
+                int(input("ID: ")),
+                input("Name: "),
+                int(input("Age: ")),
+                float(input("Marks: ")),
+                int(input("Course ID (0 if none): "))
+            )
+            insert_student_function(con, student)
+            print("Record inserted.")
+
+        print("Student records:")
+        for row in fetch_student_function(con):
+            print(row)
+
+    except (sqlite3.Error, ValueError) as e:
+        print("Error:", e)
+    finally:
+        con.close()
+
+
+# Q30: Menu-driven student management application
+def student_management():
+    while True:
+        print("""
+        STUDENT MANAGEMENT
+        1. Add Student
+        2. View Students
+        3. Update Student Marks
+        4. Delete Student
+        5. Exit
+        """)
+
+        choice = input("Enter choice: ")
+
+        if choice == "1":
+            insert_single()
+        elif choice == "2":
+            view_all()
+        elif choice == "3":
+            update_marks()
+        elif choice == "4":
+            delete_student()
+        elif choice == "5":
+            break
+        else:
+            print("Invalid choice!")
+
+
