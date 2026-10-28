@@ -1,0 +1,249 @@
+# Q1: Create and write text into a file.
+def q1():
+    with open("q1_write.txt", "w", encoding="utf-8") as f:
+        f.write("Hello! This is a text file created using Python.\n")
+    print("Written to q1_write.txt")
+
+# Q2: Read the entire file.
+def q2():
+    data = read_text()
+    if data is not None: print(data, end="")
+
+# Q3: Read line by line.
+def q3():
+    data = read_text()
+    if data is not None:
+        for n, line in enumerate(data.splitlines(), 1): print(f"{n}: {line}")
+
+# Q4: Count words.
+def q4():
+    data = read_text()
+    if data is not None: print("Words:", len(data.split()))
+
+# Q5: Count lines and characters.
+def q5():
+    data = read_text()
+    if data is not None: print("Lines:", len(data.splitlines()), "\nCharacters:", len(data))
+
+# Q6: Display even-numbered lines.
+def q6():
+    data = read_text()
+    if data is not None:
+        for n, line in enumerate(data.splitlines(), 1):
+            if n % 2 == 0: print(line)
+
+# Q7: Write multiple lines entered by the user (END stops input).
+def q7():
+    print("Enter lines; type END to finish:")
+    with open("user_lines.txt", "w", encoding="utf-8") as f:
+        while True:
+            line = input()
+            if line.strip().upper() == "END": break
+            f.write(line + "\n")
+    print("Saved to user_lines.txt")
+
+# Q8: Append content.
+def q8():
+    with open(TXT, "a", encoding="utf-8") as f: f.write("New appended line.\n")
+    print("Content appended.")
+
+# Q9: Copy a file.
+def q9():
+    data = read_text()
+    if data is not None:
+        with open("copy.txt", "w", encoding="utf-8") as f: f.write(data)
+        print("Copied to copy.txt")
+
+# Q10: Display uppercase content.
+def q10():
+    data = read_text()
+    if data is not None: print(data.upper(), end="")
+
+# Q11: Search for a word.
+def q11():
+    word = input("Word to search: ").strip()
+    data = read_text()
+    if data is not None:
+        words = [w.strip(string.punctuation).lower() for w in data.split()]
+        print("Found" if word.lower() in words else "Not found")
+
+# Q12: Count occurrences of a word.
+def q12():
+    word = input("Word to count: ").strip().lower()
+    data = read_text()
+    if data is not None:
+        words = [w.strip(string.punctuation).lower() for w in data.split()]
+        print("Occurrences:", words.count(word))
+
+# Q13: Sum and average of numbers stored in a file.
+def q13():
+    filename = "numbers.txt"
+    if not os.path.exists(filename):
+        with open(filename, "w", encoding="utf-8") as f: f.write("10\n20\n30\n40\n")
+    try:
+        with open(filename, "r", encoding="utf-8") as f:
+            nums = [float(x.strip()) for x in f if x.strip()]
+        if nums: print("Sum:", sum(nums), "\nAverage:", sum(nums) / len(nums))
+        else: print("No numbers in file.")
+    except ValueError: print("File contains invalid numbers.")
+
+# Q14: Display the longest line.
+def q14():
+    data = read_text()
+    if data is not None:
+        lines = data.splitlines()
+        if lines:
+            line = max(lines, key=len)
+            print("Longest line:", line, "\nLength:", len(line))
+        else: print("File is empty.")
+
+# Q15: Replace one word with another.
+def q15():
+    old = input("Word to replace: ")
+    new = input("New word: ")
+    data = read_text()
+    if data is not None:
+        updated = re.sub(r"\b" + re.escape(old) + r"\b", lambda m: new, data, flags=re.IGNORECASE)
+        with open(TXT, "w", encoding="utf-8") as f: f.write(updated)
+        print("Replacement complete.")
+
+# Q16: Display first and last lines.
+def q16():
+    data = read_text()
+    if data is not None:
+        lines = data.splitlines()
+        if lines: print("First:", lines[0], "\nLast:", lines[-1])
+        else: print("File is empty.")
+
+# Q17: Remove blank lines.
+def q17():
+    data = read_text()
+    if data is not None:
+        lines = [line for line in data.splitlines() if line.strip()]
+        with open("no_blank_lines.txt", "w", encoding="utf-8") as f:
+            f.write("\n".join(lines) + ("\n" if lines else ""))
+        print("Saved to no_blank_lines.txt")
+
+# Q18: Save unique words to another file.
+def q18():
+    data = read_text()
+    if data is not None:
+        words = list(dict.fromkeys(data.split()))
+        with open("unique_words.txt", "w", encoding="utf-8") as f: f.write("\n".join(words))
+        print("Saved unique words to unique_words.txt")
+
+# Q19: Sort words alphabetically.
+def q19():
+    data = read_text()
+    if data is not None:
+        words = sorted(data.split(), key=str.lower)
+        with open("sorted_words.txt", "w", encoding="utf-8") as f: f.write("\n".join(words))
+        print("Saved sorted words to sorted_words.txt")
+
+# Q20: Merge two text files into a third file.
+def q20():
+    a, b = read_text(TXT), read_text(TXT2)
+    if a is not None and b is not None:
+        with open("merged.txt", "w", encoding="utf-8") as f:
+            f.write(a)
+            if a and not a.endswith("\n"): f.write("\n")
+            f.write(b)
+        print("Merged into merged.txt")
+
+# Q21: Create and write a CSV file.
+def q21():
+    with open("new_students.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f); w.writerow(["Name", "Age", "Marks"])
+        w.writerows([["Aman", 20, 85], ["Riya", 21, 92]])
+    print("Created new_students.csv")
+
+# Q22: Read and display CSV data.
+def q22():
+    try:
+        with open(CSV_FILE, "r", newline="", encoding="utf-8") as f:
+            for row in csv.reader(f): print(" | ".join(row))
+    except FileNotFoundError: print("CSV file not found.")
+
+# Q23: Calculate averages of numeric CSV columns.
+def q23():
+    try:
+        with open(CSV_FILE, "r", newline="", encoding="utf-8") as f: rows = list(csv.DictReader(f))
+        if not rows: print("No data."); return
+        for col in rows[0]:
+            vals = []
+            for row in rows:
+                try: vals.append(float(row[col]))
+                except (ValueError, TypeError): pass
+            if vals: print(f"Average {col}: {sum(vals)/len(vals):.2f}")
+    except FileNotFoundError: print("CSV file not found.")
+
+# Q24: Count rows and columns in CSV.
+def q24():
+    try:
+        with open(CSV_FILE, "r", newline="", encoding="utf-8") as f: rows = list(csv.reader(f))
+        print("Rows including header:", len(rows))
+        print("Columns:", len(rows[0]) if rows else 0)
+    except FileNotFoundError: print("CSV file not found.")
+
+# Q25: Append a record to CSV.
+def q25():
+    name, age, marks = input("Name: "), input("Age: "), input("Marks: ")
+    with open(CSV_FILE, "a", newline="", encoding="utf-8") as f: csv.writer(f).writerow([name, age, marks])
+    print("Record added.")
+
+# Q26: Copy CSV data to another file.
+def q26():
+    try:
+        with open(CSV_FILE, "r", newline="", encoding="utf-8") as f: rows = list(csv.reader(f))
+        with open("students_copy.csv", "w", newline="", encoding="utf-8") as f: csv.writer(f).writerows(rows)
+        print("Copied to students_copy.csv")
+    except FileNotFoundError: print("CSV file not found.")
+
+# Q27: Display Name and Marks columns.
+def q27():
+    try:
+        with open(CSV_FILE, "r", newline="", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            if not reader.fieldnames or not {"Name", "Marks"}.issubset(reader.fieldnames):
+                print("CSV needs Name and Marks columns."); return
+            for row in reader: print(row["Name"], "-", row["Marks"])
+    except FileNotFoundError: print("CSV file not found.")
+
+# Q28: Find the highest marks.
+def q28():
+    try:
+        with open(CSV_FILE, "r", newline="", encoding="utf-8") as f: rows = list(csv.DictReader(f))
+        valid = [(float(r["Marks"]), r["Name"]) for r in rows if r.get("Marks", "").replace(".", "", 1).isdigit()]
+        if valid:
+            marks, name = max(valid)
+            print("Highest marks:", marks, "Student:", name)
+        else: print("No valid marks.")
+    except FileNotFoundError: print("CSV file not found.")
+
+# Q29: Search a student by name.
+def q29():
+    name = input("Student name to search: ").strip().lower()
+    try:
+        with open(CSV_FILE, "r", newline="", encoding="utf-8") as f:
+            matches = [r for r in csv.DictReader(f) if r.get("Name", "").strip().lower() == name]
+        print(matches if matches else "Student not found.")
+    except FileNotFoundError: print("CSV file not found.")
+
+# Q30: Combine multiple CSV files into one.
+def q30():
+    filenames = [CSV_FILE, "new_students.csv"]
+    header, combined = None, []
+    for filename in filenames:
+        try:
+            with open(filename, "r", newline="", encoding="utf-8") as f:
+                reader = csv.reader(f); current_header = next(reader, None)
+                if current_header is None: continue
+                if header is None: header = current_header
+                combined.extend(list(reader))
+        except FileNotFoundError: print("Skipping missing file:", filename)
+    if header:
+        with open("students_merged.csv", "w", newline="", encoding="utf-8") as f:
+            w = csv.writer(f); w.writerow(header); w.writerows(combined)
+        print("Combined file saved as students_merged.csv")
+    else: print("No CSV files found.")
+
